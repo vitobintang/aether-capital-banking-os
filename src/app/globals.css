@@ -1,0 +1,371 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   AETHER // CAPITAL — Design System Tokens
+   Dark: OLED pitch-black + glassmorphic elevation
+   Light: Swiss neo-grotesque, high contrast, hairline rules
+--------------------------------------------------------------------------- */
+
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+:root {
+  color-scheme: dark;
+
+  --canvas: #000000;
+  --canvas-raised: #060708;
+  --surface: rgba(255, 255, 255, 0.032);
+  --surface-2: rgba(255, 255, 255, 0.062);
+  --surface-3: rgba(255, 255, 255, 0.09);
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --ink: #f4f6f8;
+  --ink-muted: #9aa2ad;
+  --ink-dim: #5f6773;
+
+  --accent: #6e56f8;
+  --accent-soft: rgba(110, 86, 248, 0.16);
+  --accent-ink: #ffffff;
+  --signal: #31e1f9;
+  --live: #b8ff3c;
+  --positive: #2ee6a8;
+  --negative: #ff4d6d;
+  --warning: #ffb020;
+
+  --shadow-elevated: 0 30px 80px -30px rgba(0, 0, 0, 0.9),
+    0 2px 0 0 rgba(255, 255, 255, 0.03) inset;
+  --blur-amount: 22px;
+  --grid-line: rgba(255, 255, 255, 0.035);
+
+  --font-sans: "Inter", "Geist Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular,
+    "SF Mono", Menlo, Monaco, "Cascadia Mono", "Roboto Mono", monospace;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --canvas: #f4f5f7;
+  --canvas-raised: #ffffff;
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-2: rgba(11, 13, 15, 0.035);
+  --surface-3: rgba(11, 13, 15, 0.06);
+  --line: rgba(11, 13, 15, 0.1);
+  --line-strong: rgba(11, 13, 15, 0.2);
+  --ink: #08090b;
+  --ink-muted: #4c535d;
+  --ink-dim: #7c848f;
+
+  --accent: #4b34e0;
+  --accent-soft: rgba(75, 52, 224, 0.1);
+  --accent-ink: #ffffff;
+  --signal: #0891b2;
+  --live: #4d7c0f;
+  --positive: #068a63;
+  --negative: #d61f45;
+  --warning: #a35b00;
+
+  --shadow-elevated: 0 24px 60px -32px rgba(15, 20, 30, 0.28),
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset;
+  --blur-amount: 18px;
+  --grid-line: rgba(11, 13, 15, 0.045);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-raised: var(--canvas-raised);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-dim: var(--ink-dim);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-signal: var(--signal);
+  --color-live: var(--live);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-warning: var(--warning);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 999px;
+    background: var(--ink);
+    border: 3px solid var(--accent);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    cursor: grab;
+    margin-top: -7px;
+    transition: transform 140ms cubic-bezier(0.2, 0.9, 0.3, 1.4);
+  }
+
+  input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1.18);
+    cursor: grabbing;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--surface-3);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 999px;
+    background: var(--ink);
+    border: 3px solid var(--accent);
+    cursor: grab;
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--surface-3);
+  }
+
+  *::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--surface-3);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--line-strong);
+    background-clip: content-box;
+  }
+}
+
+/* ------------------------------ Utilities ------------------------------- */
+
+@utility glass {
+  background: var(--surface);
+  backdrop-filter: blur(var(--blur-amount)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(160%);
+  border: 1px solid var(--line);
+}
+
+@utility glass-strong {
+  background: var(--surface-2);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid var(--line-strong);
+}
+
+@utility numeric {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@utility hairline-top {
+  box-shadow: 0 -1px 0 0 var(--line);
+}
+
+@utility ambient-grid {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ------------------------------ Animations ------------------------------ */
+
+@keyframes aether-shimmer {
+  0% {
+    background-position: -180% 0;
+  }
+  100% {
+    background-position: 180% 0;
+  }
+}
+
+@keyframes aether-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate3d(0, -14px, 0) scale(1.06);
+  }
+}
+
+@keyframes aether-ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes aether-ping {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.85;
+  }
+  75%,
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+@keyframes aether-scan {
+  0% {
+    transform: translate3d(0, -120%, 0);
+  }
+  100% {
+    transform: translate3d(0, 320%, 0);
+  }
+}
+
+@keyframes aether-frost {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) rotate(-4deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes aether-drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes aether-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    var(--surface-3) 42%,
+    transparent 64%
+  );
+  background-size: 220% 100%;
+  animation: aether-shimmer 1.5s linear infinite;
+}
+
+.anim-breathe {
+  animation: aether-breathe 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.anim-ticker {
+  animation: aether-ticker 42s linear infinite;
+  will-change: transform;
+}
+
+.anim-ping {
+  animation: aether-ping 1.9s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.anim-scan {
+  animation: aether-scan 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.anim-frost {
+  animation: aether-frost 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-drift {
+  background-size: 220% 220%;
+  animation: aether-drift 14s ease infinite;
+}
+
+.anim-spin-slow {
+  animation: aether-spin-slow 3.4s linear infinite;
+}
+
+.gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
